@@ -1,8 +1,7 @@
 async function TotalLanguages (){
-    var totalLanguages=[]
+    let totalLanguages=[]
     const res=await fetch('https://restcountries.com/v2/all',{mode:'cors'})
     const result=await res.json();
-    console.log(result);
     result.forEach(country => {
         country.languages.forEach(item => {
           const find=totalLanguages.filter(data => data ===item.name)
@@ -13,22 +12,19 @@ async function TotalLanguages (){
     });
     console.log(`${totalLanguages.length} languages are there in the countries API`); 
     }
-// TotalLanguages();
+TotalLanguages();
 
 async function MostSpokenLanguages (){
-    var lang=[]
+    let lang=[]
     const res=await fetch('https://restcountries.com/v2/all',{mode:'cors'})
     const result=await res.json();
     result.forEach(country => {
         country.languages.forEach(item => {
           const find=lang.findIndex(data => data.name ===item.name)
-        //   if(lang.length === 0){
-        //       lang.push({name:item.name,count:1})
-        //   }
           if(find === -1){
             lang.push({name:item.name,count:1})
           }else{
-          // console.log(lang[find]);
+
            lang.splice(find, 1, {name:item.name,count:lang[find].count+1});
           }
         })
@@ -37,22 +33,21 @@ async function MostSpokenLanguages (){
    data= lang.sort((a, b) => {
         return b.count - a.count;
     });
-    console.log(data);
+    let data1=data.slice(0,15);
+    console.log(data1);
     }
-// MostSpokenLanguages();
+MostSpokenLanguages();
 
 async function largestArea (){
    let topTen=[]
     const res=await fetch('https://restcountries.com/v2/all',{mode:'cors'})
     const result=await res.json();
+    console.log(result);
    data= result.sort((a,b)=>{
-          return b.area - a.area
+          return b.area - a.area;
     })
-    data.forEach((item,index)=>{
-        if(index < 10){
-            topTen.push({country:item.name,Area:item.area})
-        }
-    })
-    console.log(topTen);
+  let data1=data.slice(0,10);
+  console.log(data1);
     }
 largestArea();
+
